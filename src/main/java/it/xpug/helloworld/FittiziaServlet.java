@@ -42,7 +42,7 @@ public class FittiziaServlet extends HttpServlet {
 		params.put("email", req.getParameter("email"));
 		params.put("idCorso", req.getParameter("idCorso"));
 		
-		params.put("numeroPartecipanti", getPartecipants(req));
+		params.put("numeroPartecipanti", req.getParameter("numeroPartecipanti"));
 
 		post("/api/attendants", params);
 		PrintWriter writer = resp.getWriter();
@@ -50,21 +50,6 @@ public class FittiziaServlet extends HttpServlet {
 		writer.close();
 	}
 
-	private String getPartecipants(HttpServletRequest req) {
-		String num = req.getParameter("numeroPartecipanti");
-		if(num == null){
-			return "1";
-		}
-		return num;
-	}
-	
-	private String getPartecipants(HashMap<String, String> params) {
-		String num = params.get("numeroPartecipanti");
-		if(num == null){
-			return "1";
-		}
-		return num;
-	}
 
 	public String get(String url) {
 		return recorder.getAttendantsAsJson();
@@ -72,8 +57,17 @@ public class FittiziaServlet extends HttpServlet {
 
 	void post(String url, HashMap<String, String> params) {
 		
-		int numeroPartecipanti = Integer.parseInt(getPartecipants(params));
-		Attendant attendant = new Attendant(params.get("nome"), params.get("cognome"), params.get("email"), params.get("idCorso"), numeroPartecipanti );
+		
+		Attendable attendant = getAttendant(params);
 		recorder.addAddendants(attendant);
+	}
+
+	private Attendable getAttendant(HashMap<String, String> params) {
+		String num = params.get("numeroPartecipanti");
+		if(num==null){
+			return new Attendant(params.get("nome"), params.get("cognome"), params.get("email"), params.get("idCorso"));
+		}else{
+			return new CompanyAttendant(params.get("nome"), params.get("email"), params.get("idCorso"), Integer.parseInt(num));
+		}
 	}
 }

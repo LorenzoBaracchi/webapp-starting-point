@@ -10,7 +10,7 @@ public class AttendantRecorderTest {
 	public void shouldReadListWithOneAttendant() {
 		
 		AttendantRecorder recorder = new AttendantRecorder();
-		Attendant attendant = new Attendant("pippo", "pluto", "pippo@gmail.com", "abc", 1);
+		Attendable attendant = new Attendant("pippo", "pluto", "pippo@gmail.com", "abc");
 		
 		recorder.addAddendants(attendant);
 		
@@ -23,11 +23,11 @@ public class AttendantRecorderTest {
 		AttendantRecorder recorder = new AttendantRecorder();
 		
 		assertEquals("[]",recorder.getAttendantsAsJson());
-		Attendant attendant = new Attendant("pippo", "pluto", "pippo@gmail.com", "abc", 1);
+		Attendable attendant = new Attendant("pippo", "pluto", "pippo@gmail.com", "abc");
 		
 		recorder.addAddendants(attendant);
 		assertEquals("[{\"nome\":\"pippo\", \"cognome\":\"pluto\", \"email\":\"pippo@gmail.com\", \"idCorso\":\"abc\"}]", recorder.getAttendantsAsJson());
-		attendant = new Attendant("ciao", "mario", "pippo@gmail.com", "cba", 1);
+		attendant = new Attendant("ciao", "mario", "pippo@gmail.com", "cba");
 		
 		recorder.addAddendants(attendant);
 		assertEquals("[{\"nome\":\"pippo\", \"cognome\":\"pluto\", \"email\":\"pippo@gmail.com\", \"idCorso\":\"abc\"},"
@@ -38,10 +38,10 @@ public class AttendantRecorderTest {
 	public void shouldMultipleAttendantsForCompany() {
 		AttendantRecorder recorder = new AttendantRecorder();
 		
-		Attendant attendant = new Attendant("nomeAzienda", "", "pippo@azienda.com", "corsoid", 5);
+		Attendable attendant = new CompanyAttendant("nomeAzienda", "pippo@azienda.com", "corsoid", 5);
 		
 		recorder.addAddendants(attendant);
-		assertEquals("[{\"nome\":\"nomeAzienda\", \"cognome\":\"\", \"email\":\"pippo@azienda.com\", \"idCorso\":\"corsoid\", \"numeroPartecipanti\": 5}]",
+		assertEquals("[{\"nome\":\"nomeAzienda\", \"email\":\"pippo@azienda.com\", \"idCorso\":\"corsoid\", \"numeroPartecipanti\":5}]",
 				recorder.getAttendantsAsJson());
 	}
 

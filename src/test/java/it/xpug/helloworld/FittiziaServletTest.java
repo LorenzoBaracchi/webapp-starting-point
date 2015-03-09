@@ -47,7 +47,7 @@ public class FittiziaServletTest {
 
 		server.post("/api/attendants", params);
 		assertEquals(
-				"[{\"nome\":\"pippo\", \"cognome\":\"pluto\", \"email\":\"pippo@gmail.com\", \"idCorso\":\"tortellini\", \"numeroPartecipanti\":1}]",
+				"[{\"nome\":\"pippo\", \"cognome\":\"pluto\", \"email\":\"pippo@gmail.com\", \"idCorso\":\"tortellini\"}]",
 				server.get("/api/attendants"));
 	}
 	
@@ -57,14 +57,13 @@ public class FittiziaServletTest {
 
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("nome", "pippo");
-		params.put("cognome", "pluto");
 		params.put("email", "pippo@gmail.com");
 		params.put("idCorso", "tortellini");
 		params.put("numeroPartecipanti", "9");
 
 		server.post("/api/attendants", params);
 		assertEquals(
-				"[{\"nome\":\"pippo\", \"cognome\":\"pluto\", \"email\":\"pippo@gmail.com\", \"idCorso\":\"tortellini\", \"numeroPartecipanti\":9}]",
+				"[{\"nome\":\"pippo\", \"email\":\"pippo@gmail.com\", \"idCorso\":\"tortellini\", \"numeroPartecipanti\":9}]",
 				server.get("/api/attendants"));
 	}
 	
