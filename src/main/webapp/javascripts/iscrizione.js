@@ -4,10 +4,10 @@ var Subscription = (function (module, window) {
             + "?cc=" + sender
              + "&subject=" + escape("Iscrizione a: " + courseName)
              + "&body=" + escape('');
-        
+
         window.location.href = link;
     }
-    
+
     function validate(viewModel){
         return true;
     };
@@ -16,7 +16,7 @@ var Subscription = (function (module, window) {
     	this.name = ko.observable('');
     	this.surname = ko.observable('');
     	this.email = ko.observable('');
-    	
+
     	this.validate = function() {
     		return true;
     	}
@@ -25,14 +25,14 @@ var Subscription = (function (module, window) {
     	this.name = ko.observable('');
     	this.attendandsNumber = ko.observable(1);
     	this.email = ko.observable('');
-    	
+
     	this.validate = function(){
     		return true;
     	}
     }
     var ViewModel = function (config) {
     	this.config = config;
-    	
+
     	this.privateAttendant = new PrivateAttendant();
     	this.companyAttendant = new CompanyAttendant();
         this.course = ko.observable(config.courseName);
@@ -50,7 +50,7 @@ var Subscription = (function (module, window) {
         		.done(this._registerCompanyAttendantCompleted)
         		.fail(this._registerCompanyAttendantFailed);
         }
-        
+
         var self = this;
 
         this._registerPrivateAttendantCompleted = function (result) {
