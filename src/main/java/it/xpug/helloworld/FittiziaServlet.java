@@ -43,13 +43,16 @@ public class FittiziaServlet extends HttpServlet {
 		params.put("idCorso", req.getParameter("idCorso"));
 
 		post("/api/attendants", params);
+		PrintWriter writer = resp.getWriter();
+		writer.write("Iscrizione avvenuta con sucesso!");
+		writer.close();
 	}
 
 	public String get(String url) {
 		return recorder.getAttendantsAsJson();
 	}
 
-	void post(String string, HashMap<String, String> params) {
+	void post(String url, HashMap<String, String> params) {
 		Attendant attendant = new Attendant(params.get("nome"), params.get("cognome"), params.get("email"), params.get("idCorso"));
 		recorder.addAddendants(attendant);
 	}
