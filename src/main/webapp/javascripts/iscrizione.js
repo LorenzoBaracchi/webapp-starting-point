@@ -54,20 +54,21 @@ var Subscription = (function (module, window) {
         var self = this;
         this._registerPrivateAttendantCompleted = function (result) {
         	alert('OK - Private');
-            sendMail(mailAddress, self.name(), self.surname(), self.email(), self.course());
+            sendMail(self.config.mailAddress, self.name(), self.surname(), self.email(), self.course());
         },
         this._registerPrivateAttendantFailed = function (error) {
             alert('Errore')
         }
         this._registerCompanyAttendantCompleted = function (result) {
         	alert('OK - Company');
-            sendMail(mailAddress, self.name(), self.surname(), self.email(), self.course());
+            sendMail(self.config.mailAddress, self.name(), self.surname(), self.email(), self.course());
         },
         this._registerCompanyAttendantFailed = function (error) {
             alert('Errore')
         }
     }
 
+    module.ViewModel = ViewModel;
     module.App = function (config) {
         this.config = config;
         this.init = function (course) {
