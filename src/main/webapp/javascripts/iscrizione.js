@@ -26,12 +26,15 @@ var Subscription = (function (module, window) {
         this.sendSubscription = function() {
             if(validate(this)){
                 client.registerUser(this.course(), this.name(), this.surname(), this.email())
-                    .done(this._registerCompleted.bind(this))
-                    .fail(this._registerFailed.bind(this));
+                    .done(this._registerCompleted)
+                    .fail(this._registerFailed);
             };
         }
+        
+        var self = this;
         this._registerCompleted = function (result) {
-            sendMail(this.name(), this.surname(), this.email(), this.course());
+        	alert('OK');
+            sendMail(self.name(), self.surname(), self.email(), self.course());
         },
         this._registerFailed = function (error) {
             alert('Errore')
