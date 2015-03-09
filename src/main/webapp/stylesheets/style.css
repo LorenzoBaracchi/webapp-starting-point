@@ -20,3 +20,8 @@ body {
 input[type="text"] {
   width: 45em;
 }
+
+img.img-responsive {
+  width: 700px;
+  height: 300px;
+}
