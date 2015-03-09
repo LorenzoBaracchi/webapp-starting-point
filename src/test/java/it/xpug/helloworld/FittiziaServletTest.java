@@ -36,7 +36,7 @@ public class FittiziaServletTest {
 	}
 
 	@Test
-	public void shouldAddAttendandOnPost() {
+	public void shouldAddAttendandOnPostSinglePartecipant() {
 		FittiziaServlet server = new FittiziaServlet(null);
 
 		HashMap<String, String> params = new HashMap<String, String>();
@@ -47,7 +47,24 @@ public class FittiziaServletTest {
 
 		server.post("/api/attendants", params);
 		assertEquals(
-				"[{\"nome\":\"pippo\", \"cognome\":\"pluto\", \"email\":\"pippo@gmail.com\", \"idCorso\":\"tortellini\"}]",
+				"[{\"nome\":\"pippo\", \"cognome\":\"pluto\", \"email\":\"pippo@gmail.com\", \"idCorso\":\"tortellini\", \"numeroPartecipanti\":1}]",
+				server.get("/api/attendants"));
+	}
+	
+	@Test
+	public void shouldAddAttendandOnPostMultiplePartecipants() {
+		FittiziaServlet server = new FittiziaServlet(null);
+
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("nome", "pippo");
+		params.put("cognome", "pluto");
+		params.put("email", "pippo@gmail.com");
+		params.put("idCorso", "tortellini");
+		params.put("numeroPartecipanti", "9");
+
+		server.post("/api/attendants", params);
+		assertEquals(
+				"[{\"nome\":\"pippo\", \"cognome\":\"pluto\", \"email\":\"pippo@gmail.com\", \"idCorso\":\"tortellini\", \"numeroPartecipanti\":9}]",
 				server.get("/api/attendants"));
 	}
 	
