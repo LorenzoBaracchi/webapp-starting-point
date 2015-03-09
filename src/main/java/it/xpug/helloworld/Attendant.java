@@ -29,8 +29,8 @@ public class Attendant{
 	@Override
 	public String toString() {
 
-		return "{nome:\""+this.getNome()+"\", cognome:\""+this.getCognome()+
-				"\", email:\""+this.getEmail()+"\", idCorso:\""+this.idCorso+"\"}";
+		return "{\"nome\":\""+this.getNome()+"\", \"cognome\":\""+this.getCognome()+
+				"\", \"email\":\""+this.getEmail()+"\", \"idCorso\":\""+this.idCorso+"\"}";
 	}
 
 	public String getIdCorso() {

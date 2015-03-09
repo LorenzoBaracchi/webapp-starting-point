@@ -1,8 +1,5 @@
 function AjaxClient(address, headers) {
     this._address = address;
-    this._headers = headers || {};
-    this._headers['Accept'] = 'application/json';
-    this._headers['Content-Type'] = 'application/json';
     this._calls = [];
 };
 AjaxClient.prototype = {
@@ -35,9 +32,6 @@ AjaxClient.prototype = {
         return this.__performCall({
             url: method,
             type: type,
-            dataType: 'json',
-            contentType: 'application/json',
-            headers: self._headers,
             data: parameters
         });
     },
@@ -63,7 +57,7 @@ AjaxClient.prototype = {
 function UserClient(address, headers) {
     this.client = new AjaxClient(address, headers);
     this.registerUser = function (course, name, surname, email) {
-        return this.client._callPostMethod('api/attendands', {
+        this.client._callPostMethod('api/attendands', {
             idCorso: course,
             nome: name,
             cognome: surname,
@@ -74,8 +68,9 @@ function UserClient(address, headers) {
         return this.client._callGetMethod('api/attendands', null)
         .then(function (result) {
             var res = [];
+            result = JSON.parse(result);
             for (var i = 0; i < result.length; i++) {
-                if (result.idCorso === course) {
+                if (result[i].idCorso === course) {
                     res.push({
                         name: result[i].nome,
                         surname: result[i].cognome,
@@ -162,7 +157,7 @@ function CourseClient(address, headers) {
             id: 'id0',
             name: 'ScuolaXP',
             briefDescription: 'XP School - 5 giorni per diventare un team di agile developers',
-            longDescription: 'Un buon team di sviluppo è come una band: combina le abilità del singolo con le dinamiche di gruppo per realizzare insieme, ogni giorno, qualcosa di speciale. Un buon team di sviluppo può essere incredibilmente performante: risolvendo problemi complessi, costruendo software a prova di bomba o trovando soluzioni alternative che permettono di arrivare allo stesso obiettivo, con un percorso più agevole. Un eXtreme Programming team, ottiene questi risultati creando un contesto favorevole alla collaborazione, costruendo la fiducia reciproca grazie alla condivisione di principi, metodi e pratiche di buona programmazione, quali pair programming, test-driven development, continuous integration e non solo.',
+            longDescription: 'Un buon team di sviluppo ï¿½ come una band: combina le abilitï¿½ del singolo con le dinamiche di gruppo per realizzare insieme, ogni giorno, qualcosa di speciale. Un buon team di sviluppo puï¿½ essere incredibilmente performante: risolvendo problemi complessi, costruendo software a prova di bomba o trovando soluzioni alternative che permettono di arrivare allo stesso obiettivo, con un percorso piï¿½ agevole. Un eXtreme Programming team, ottiene questi risultati creando un contesto favorevole alla collaborazione, costruendo la fiducia reciproca grazie alla condivisione di principi, metodi e pratiche di buona programmazione, quali pair programming, test-driven development, continuous integration e non solo.',
             img: 'images/scuolaxp.png',
             date: {
                 from: '9 Marzo 2015',

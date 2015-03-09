@@ -14,7 +14,7 @@ public class AttendantRecorderTest {
 		
 		recorder.addAddendants(attendant);
 		
-		assertEquals("[{nome:\"pippo\", cognome:\"pluto\", email:\"pippo@gmail.com\", idCorso:\"abc\"}]", recorder.getAttendantsAsJson());
+		assertEquals("[{\"nome\":\"pippo\", \"cognome\":\"pluto\", \"email\":\"pippo@gmail.com\", \"idCorso\":\"abc\"}]", recorder.getAttendantsAsJson());
 	}
 	
 	@Test
@@ -26,12 +26,12 @@ public class AttendantRecorderTest {
 		Attendant attendant = new Attendant("pippo", "pluto", "pippo@gmail.com", "abc");
 		
 		recorder.addAddendants(attendant);
-		assertEquals("[{nome:\"pippo\", cognome:\"pluto\", email:\"pippo@gmail.com\", idCorso:\"abc\"}]", recorder.getAttendantsAsJson());
+		assertEquals("[{\"nome\":\"pippo\", \"cognome\":\"pluto\", \"email\":\"pippo@gmail.com\", \"idCorso\":\"abc\"}]", recorder.getAttendantsAsJson());
 		attendant = new Attendant("ciao", "mario", "pippo@gmail.com", "cba");
 		
 		recorder.addAddendants(attendant);
-		assertEquals("[{nome:\"pippo\", cognome:\"pluto\", email:\"pippo@gmail.com\", idCorso:\"abc\"},"
-				+ "{nome:\"ciao\", cognome:\"mario\", email:\"pippo@gmail.com\", idCorso:\"cba\"}]", recorder.getAttendantsAsJson());	
+		assertEquals("[{\"nome\":\"pippo\", \"cognome\":\"pluto\", \"email\":\"pippo@gmail.com\", \"idCorso\":\"abc\"},"
+				+ "{\"nome\":\"ciao\", \"cognome\":\"mario\", \"email\":\"pippo@gmail.com\", \"idCorso\":\"cba\"}]", recorder.getAttendantsAsJson());	
 	}
 
 }

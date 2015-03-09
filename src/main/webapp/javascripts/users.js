@@ -1,7 +1,7 @@
 var Users = (function (module, window) {
     var config = {
         mail: 'fittiziasrl@gmail.com',
-        serviceAddress: 'http://damp-badlands-6244.herokuapp.com/api/attendants'
+        serviceAddress: 'http://localhost:8080'
     };
 
     var ViewModel = function (course) {

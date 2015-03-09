@@ -47,7 +47,7 @@ public class FittiziaServletTest {
 
 		server.post("/api/attendants", params);
 		assertEquals(
-				"[{nome:\"pippo\", cognome:\"pluto\", email:\"pippo@gmail.com\", idCorso:\"tortellini\"}]",
+				"[{\"nome\":\"pippo\", \"cognome\":\"pluto\", \"email\":\"pippo@gmail.com\", \"idCorso\":\"tortellini\"}]",
 				server.get("/api/attendants"));
 	}
 
