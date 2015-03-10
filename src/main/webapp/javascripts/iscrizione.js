@@ -32,7 +32,7 @@ var Subscription = (function (module, window) {
         }
     }
 
-    module.app = function () {
+    module.App = function () {
         this.init = function (course) {
             var config = {
                 courseName: course
