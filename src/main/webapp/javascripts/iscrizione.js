@@ -3,10 +3,10 @@ var Subscription = (function (module, window) {
         mail: 'fittiziasrl@gmail.com'
     };
     function sendMail(name, surname, sender, courseName) {
-        var link = "mailto:me@example.com"
+        var link = "mailto:" + config.mail
             + "?cc=" + sender
              + "&subject=" + escape("Iscrizione " + courseName)
-             + "&body=" + escape('<h1> Iscrizione a ' + courseName + '</h1> <p>Il sottoscritto ' + name + ' ' + surname + " richiede l'iscrizione al corso: " + courseName);
+             + "&body=" + escape('Il sottoscritto ' + name + ' ' + surname + " richiede l'iscrizione al corso: " + courseName);
         
         window.location.href = link;
     }
