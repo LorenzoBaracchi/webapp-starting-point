@@ -12,7 +12,7 @@ body {
 
 .business-header {
     height: 400px;
-    background: url('http://placehold.it/1920x400') center center no-repeat scroll;
+    background: url('../images/fitt.png') center center no-repeat scroll;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -23,7 +23,7 @@ body {
 
 .tagline {
     text-shadow: 0 0 10px #000;
-    color: #fff;
+    color: #000;
 }
 
 .img-center {
