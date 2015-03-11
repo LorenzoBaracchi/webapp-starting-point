@@ -13,7 +13,7 @@ public class Main {
 	public static void main(String[] args) {
 		DatabaseConfiguration configuration = new DatabaseConfiguration(getDatabaseUrl());
 		Database database = new Database(configuration);
-		HelloWorldServlet servlet = new HelloWorldServlet(database);
+		FittiziaServlet servlet = new FittiziaServlet(database);
 		ReusableJettyApp app = new ReusableJettyApp(servlet);
 		app.start(getPort(), "src/main/webapp");
 	}
