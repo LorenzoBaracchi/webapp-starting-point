@@ -2,6 +2,7 @@ var Subscription = (function (module, window) {
     var config = {
         mail: 'fittiziasrl@gmail.com'
     };
+
     function sendMail(name, surname, sender, courseName) {
         var link = "mailto:" + config.mail
             + "?cc=" + sender
@@ -40,5 +41,13 @@ var Subscription = (function (module, window) {
             ko.applyBindings(new ViewModel(config), $('#iscrizione')[0]);
         }
     }
+
+    function MyObj() {
+        this.myMethod = function () { };
+        this.myAttribute = 'attribute';
+    }
+
+    var obj = new MyObj();
+
     return module;
 })(Subscription || {}, this);
