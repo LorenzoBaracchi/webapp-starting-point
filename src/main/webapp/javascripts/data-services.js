@@ -69,7 +69,7 @@ function UserClient(address, headers) {
         	idCorso: course,
             nome: companyAttendant.name(),
             email: companyAttendant.email(),
-            cognome: companyAttendant.attendandsNumber()
+            numeroPartecipanti: companyAttendant.attendandsNumber()
         });
     }
     this.getUsers = function (course) {
