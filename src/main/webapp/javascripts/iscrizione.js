@@ -1,6 +1,6 @@
 var Subscription = (function (module, window) {
-    function sendMail(name, surname, sender, courseName) {
-        var link = "mailto:" + config.mail
+    function sendMail(email, name, surname, sender, courseName) {
+        var link = "mailto:" + email
             + "?cc=" + sender
              + "&subject=" + escape("Iscrizione " + courseName)
              + "&body=" + escape('Il sottoscritto ' + name + ' ' + surname + " richiede l'iscrizione al corso: " + courseName);
@@ -13,7 +13,8 @@ var Subscription = (function (module, window) {
     };
 
     var ViewModel = function (config) {
-        var client = new UserClient(config.serviceAddress);
+    	var mailAddress = config.mail,
+        	client = new UserClient(config.serviceAddress);
         this.name = ko.observable('');
         this.surname = ko.observable('');
         this.email = ko.observable('');
@@ -34,7 +35,7 @@ var Subscription = (function (module, window) {
         var self = this;
         this._registerCompleted = function (result) {
         	alert('OK');
-            sendMail(self.name(), self.surname(), self.email(), self.course());
+            sendMail(mailAddress, self.name(), self.surname(), self.email(), self.course());
         },
         this._registerFailed = function (error) {
             alert('Errore')
