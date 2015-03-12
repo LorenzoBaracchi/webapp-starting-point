@@ -34,7 +34,7 @@
 <body>
     <script type="text/html" id="users-list">
        <ul data-bind="foreach: users">
-           <li><span data-bind="text: name"></span></li>
+           <li><span data-bind="text: name"></span> <span data-bind="text: surname"></span> - <span data-bind="text: email"></span></li>
 
        </ul>
     </script>
@@ -70,13 +70,10 @@
             <div class="col-md-3">
                 <div class="row">
                     <div class="col-md-3">
-                        <img height="48" width="48" src="../images/scuolaxp.png" />
+                        <img height="48" width="48" src="../images/admin.png" />
                     </div>
                     <div class="col-md-3">
-                        <p class="lead">Matteo Vaccari</p>
-                        <p class="lead">Antonio Carpentieri</p>
-                        <p class="lead">Alberto Brandolini</p>
-                        <p class="lead">Andrea Francia</p>
+                        <p class="lead">Admin</p>
                     </div>
                 </div>
                 <div class="row">
@@ -91,18 +88,17 @@
             </div>
             <div class="col-md-9">
                 <div class="thumbnail">
-                    <img class="img-responsive" width="800" height="300" src="../images/scuolaxp.png" alt="">
                     <div class="caption-full">
-                        <h3 class="pull-right">€ 300.00</h3>
+                        <h4 class="pull-right"><a href="#">Modifica Partecipanti</a></h4>
                         <h3> <a href="#">ScuolaXP</a> </h3>
 
-                        <h4> In Corso - Luogo e indirizzo</h4>
+                        <h4> Lista Partecipanti</h4>
 
-
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                        <div id="iscrizione" data-bind="template: {name: 'users-list'}" style="width:40%"></div>
+                        
                     </div>
 
-                    <div id="iscrizione" data-bind="template: {name: 'users-list'}" style="width:40%"></div>
+                    
                 </div>
 
             </div>
