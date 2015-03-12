@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -17,17 +17,59 @@
 
     <!-- Custom CSS -->
     <link href="stylesheets/1-col-portfolio.css" rel="stylesheet">
+    <script src="javascripts/lib/jquery.js"></script>
+    <script src="javascripts/lib/bootstrap.js"></script>
+
+    <script src="javascripts/lib/knockout.js"></script>
+
+    <script src="javascripts/data-services.js"></script>
+    <script src="javascripts/config.js"></script>
+    <script src="javascripts/courses.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 
+    <![endif]-->
+    <script>
+        $(window).load(function () {
+            var client = new CourseClient(Config.serviceAddress),
+                viewModel = new Courses.ViewModel();
+            ko.applyBindings(viewModel);
+            client.getAll()
+                .done(viewModel.courses)
+                .fail(function () { alert('Errore') });
+        })
+    </script>
 </head>
 
 <body>
+    <script type="text/html" id="course-template">
+        <!-- Project One -->
+        <div class="row current">
+            <div class="col-md-7">
+                <a href="#">
+                    <img class="img-responsive" data-bind="attr: { src: img}"  alt="">
+                </a>
+            </div>
+            <div class="col-md-5">
+                <h3 data-bind="text: name"></h3>
+                <h4 data-bind="text: briefDescription"></h4>
+                <p data-bind="text: longDescription"></p>
+
+                <div class="data">dal <span data-bind="text: date.from"></span> al <span data-bind="text: date.to"></span> </div>
+
+                <div class="docente">Docenti: <span data-bind="foreach: teachers"></span> </div>
+
+                <a class="btn btn-primary" data-bind="attr: { href: 'details.html?course=' + id }">Vai al corso <span class="glyphicon glyphicon-chevron-right"></span></a>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <hr>
+    </script>
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -61,141 +103,17 @@
         <!-- Page Heading -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Prossimi Corsi
+                <h1 class="page-header">
+                    Prossimi Corsi
                 </h1>
             </div>
         </div>
         <!-- /.row -->
 
-        <!-- Project One -->
-        <div class="row current">
-            <div class="col-md-7">
-                <a href="#">
-                    <img class="img-responsive" src="images/scuolaxp.png" alt="">
-                </a>
-            </div>
-            <div class="col-md-5">
-                <h3>Scuola XP</h3>
-                <h4>XP School - 5 giorni per diventare un team di agile developers</h4>
-                <p>Un buon team di sviluppo è come una band: combina le abilità del singolo con le dinamiche di gruppo per realizzare insieme, ogni giorno, qualcosa di speciale.
-
-                  Un buon team di sviluppo può essere incredibilmente performante: risolvendo problemi complessi, costruendo software a prova di bomba o trovando soluzioni alternative che permettono di arrivare allo stesso obiettivo, con un percorso più agevole.
-
-                  Un eXtreme Programming team, ottiene questi risultati creando un contesto favorevole alla collaborazione, costruendo la fiducia reciproca grazie alla condivisione di principi, metodi e pratiche di buona programmazione, quali pair programming, test-driven development, continuous integration e non solo.</p>
-
-                <div class="data">dal 9 Marzo 2015 al 13 Marzo 2015 </div>
-
-                <div class="docente">Docenti: Matteo Vaccari, Antonio Carpentieri, Alberto Brandolini, Andrea Francia </div>
-
-                <a class="btn btn-primary" href="scuolaxp.html">Vai al corso <span class="glyphicon glyphicon-chevron-right"></span></a>
-            </div>
+        <div data-bind="foreach: courses">
+            <div data-bind="template: {name: 'course-template'}"></div>
         </div>
-        <!-- /.row -->
 
-        <hr>
-
-        <!-- Project Two -->
-        <div class="row">
-            <div class="col-md-7">
-                <a href="#">
-                    <img class="img-responsive" src="images/sommossa.jpg" alt="">
-                </a>
-            </div>
-            <div class="col-md-5">
-                <h3>Organizzazione Sommosse</h3>
-                <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, odit velit cumque vero doloremque repellendus distinctio maiores rem expedita a nam vitae modi quidem similique ducimus! Velit, esse totam tempore.</p>
-
-                <div class="data">15 Maggio 2015</div>
-
-                <div class="docente">Docenti: Alberto Brandolini</div>
-
-                <a class="btn btn-primary" href="sommosse.html">Vai al corso <span class="glyphicon glyphicon-chevron-right"></span></a>
-            </div>
-        </div>
-        <!-- /.row -->
-
-        <hr>
-
-        <!-- Project Three -->
-        <div class="row">
-            <div class="col-md-7">
-                <a href="#">
-                    <img class="img-responsive" src="images/cappelletti.jpg" alt="">
-                </a>
-            </div>
-            <div class="col-md-5">
-                <h3>Tortelloni e Cappelletti</h3>
-                <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis, temporibus, dolores, at, praesentium ut unde repudiandae voluptatum sit ab debitis suscipit fugiat natus velit excepturi amet commodi deleniti alias possimus!</p>
-
-                <div class="data">20 Giugno 2015</div>
-
-                <div class="docente">Docenti: La Signora Maria </div>
-
-                <a class="btn btn-primary" href="tortelloni.html">Vai al corso <span class="glyphicon glyphicon-chevron-right"></span></a>
-            </div>
-        </div>
-        <!-- /.row -->
-
-        <hr>
-
-        <!-- Project Four -->
-        <div class="row">
-
-            <div class="col-md-7">
-                <a href="#">
-                    <img class="img-responsive" src="images/lasagne.jpg" alt="">
-                </a>
-            </div>
-            <div class="col-md-5">
-                <h3>Lasagne</h3>
-                <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, quidem, consectetur, officia rem officiis illum aliquam perspiciatis aspernatur quod modi hic nemo qui soluta aut eius fugit quam in suscipit?</p>
-
-                <div class="data">Settembre 2015, giorno da definire</div>
-
-                <div class="docente">Docenti: La Signora Maria </div>
-
-                <a class="btn btn-primary" href="lasagna.html">Vai al corso <span class="glyphicon glyphicon-chevron-right"></span></a>
-            </div>
-        </div>
-        <!-- /.row -->
-
-        <hr>
-
-
-        <!-- Pagination -->
-        <!--
-        <div class="row text-center">
-            <div class="col-lg-12">
-                <ul class="pagination">
-                    <li>
-                        <a href="#">&laquo;</a>
-                    </li>
-                    <li class="active">
-                        <a href="#">1</a>
-                    </li>
-                    <li>
-                        <a href="#">2</a>
-                    </li>
-                    <li>
-                        <a href="#">3</a>
-                    </li>
-                    <li>
-                        <a href="#">4</a>
-                    </li>
-                    <li>
-                        <a href="#">5</a>
-                    </li>
-                    <li>
-                        <a href="#">&raquo;</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-      -->
-        <!-- /.row -->
 
 
         <!-- Footer -->
@@ -209,14 +127,7 @@
         </footer>
 
     </div>
-    <!-- /.container -->
-
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
+   
 </body>
 
 </html>

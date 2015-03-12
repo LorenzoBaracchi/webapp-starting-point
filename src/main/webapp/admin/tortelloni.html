@@ -21,35 +21,27 @@
 
 
     <script src="../javascripts/lib/knockout.js"></script>
-    <script src="../javascripts/iscrizione.js"></script>
+    <script src="../javascripts/data-services.js"></script>
+    <script src="../javascripts/users.js"></script>
 
     <script>
         $(window).load(function () {
-            app = new Subscription.App();
-            app.init('Tortelloni');
+            ko.applyBindings(new Users.ViewModel('Tortelloni'))
         })
 
     </script>
-
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
-
-    <script type="text/html" id="subscription-form">
-        <form>
-            <div class="form-group">
-                <label>Nome</label>
-                <input type="text" data-bind="value: name" class="form-control" id="text-name" placeholder="Nome" />
-            </div>
-            <div class="form-group">
-                <label>Cognome</label>
-                <input type="text" class="form-control" data-bind="value: surname" placeholder="Cognome">
-            </div>
-            <div class="form-group">
-                <label>E-Mail</label>
-                <input type="email" class="form-control" data-bind="value: email" placeholder="E-Mail">
-            </div>
-            <button data-bind="click: sendSubscription" type="button" class="btn btn-default">Iscriviti</button>
-        </form>
+    <script type="text/html" id="users-list">
+        <ul data-bind="foreach: users">
+            <li><span data-bind="text: name"></span></li>
+        </ul>
     </script>
 
     <!-- Navigation -->
@@ -118,7 +110,7 @@
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
                     </div>
 
-                    <div id="iscrizione" data-bind="template: {name: 'subscription-form'}" style="width:40%"></div>
+                    <div id="iscrizione" data-bind="template: {name: 'users-list'}" style="width:40%"></div>
 
                 </div>
             </div>

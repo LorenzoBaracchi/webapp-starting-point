@@ -1,6 +1,7 @@
 var Subscription = (function (module, window) {
     var config = {
-        mail: 'fittiziasrl@gmail.com'
+        mail: 'fittiziasrl@gmail.com',
+        serviceAddress: 'http://mioserviceaddress.blablabla.com'
     };
 
     function sendMail(name, surname, sender, courseName) {
@@ -17,6 +18,7 @@ var Subscription = (function (module, window) {
     };
 
     var ViewModel = function (config) {
+        var client = new UserClient(config.serviceAddress);
         this.name = ko.observable('');
         this.surname = ko.observable('');
         this.email = ko.observable('');
@@ -28,8 +30,17 @@ var Subscription = (function (module, window) {
 
         this.sendSubscription = function() {
             if(validate(this)){
-                sendMail(this.name(), this.surname(), this.email(), this.course() );
+                client.registerUser(this.course(), this.name(), this.surname(), this.email())
+                    .done(this._registerCompleted.bind(this))
+                    .fail(this._registerFailed.bind(this));
             };
+        }
+        this._registerCompleted = function (result) {
+            sendMail(this.name(), this.surname(), this.email(), this.course());
+            alert('OK');
+        },
+        this._registerFailed = function (error) {
+            alert('Nope')
         }
     }
 
@@ -41,13 +52,6 @@ var Subscription = (function (module, window) {
             ko.applyBindings(new ViewModel(config), $('#iscrizione')[0]);
         }
     }
-
-    function MyObj() {
-        this.myMethod = function () { };
-        this.myAttribute = 'attribute';
-    }
-
-    var obj = new MyObj();
 
     return module;
 })(Subscription || {}, this);
