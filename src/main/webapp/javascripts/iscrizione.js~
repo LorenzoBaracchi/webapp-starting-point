@@ -34,7 +34,7 @@ var Subscription = (function (module, window) {
         
         var self = this;
         this._registerCompleted = function (result) {
-        	//alert('OK');
+        	alert('OK');
             sendMail(mailAddress, self.name(), self.surname(), self.email(), self.course());
         },
         this._registerFailed = function (error) {
