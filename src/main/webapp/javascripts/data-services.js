@@ -82,7 +82,8 @@ function UserClient(address, headers) {
                     res.push({
                         name: result[i].nome,
                         surname: result[i].cognome,
-                        email: result[i].email
+                        email: result[i].email,
+                        attendantsNumber: result[i].numeroPartecipanti || 1
                     })
                 }
             }
