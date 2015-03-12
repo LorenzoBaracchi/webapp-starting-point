@@ -63,15 +63,15 @@ AjaxClient.prototype = {
 function UserClient(address, headers) {
     this.client = new AjaxClient(address, headers);
     this.registerUser = function (course, name, surname, email) {
-        return this.client._callPostMethod('save', {
-            course: course,
-            name: name,
-            surname: surname,
+        return this.client._callPostMethod('api/attendands', {
+            idCorso: course,
+            nome: name,
+            cognome: surname,
             email: email
         })
     }
     this.getUsers = function (course) {
-        return this.client._callGetMethod('getUsers', null)
+        return this.client._callGetMethod('api/attendands', null)
         .then(function (result) {
             var res = [];
             for (var i = 0; i < result.length; i++) {
@@ -168,6 +168,7 @@ function CourseClient(address, headers) {
                 from: '9 Marzo 2015',
                 to: '13 Marzo 2015'
             },
+            detailsUrl: 'scuolaxp.html',
             location: 'Giussago',
             price: '300.00',
             teachers: ['...', '...'],
@@ -187,6 +188,7 @@ function CourseClient(address, headers) {
                 from: '15 Maggio 2015',
                 to: ' Da Decidere '
             },
+            detailsUrl: 'sommosse.html',
             location: 'Luogo da decidere',
             price: '150.00',
             teachers: ['Brando'],
@@ -206,6 +208,7 @@ function CourseClient(address, headers) {
                 from: '20 Giugno 2015',
                 to: ' Da Decidere '
             },
+            detailsUrl: 'lasagna.html',
             location: 'Luogo da decidere',
             price: '150.00',
             teachers: ['La Signora Maria'],
@@ -225,6 +228,7 @@ function CourseClient(address, headers) {
                 from: '20 Giugno 2015',
                 to: ' Da Decidere '
             },
+            detailsUrl: 'tortelloni.html',
             location: 'Luogo da decidere',
             price: '150.00',
             teachers: ['La Signora Maria'],

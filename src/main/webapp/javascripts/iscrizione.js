@@ -1,9 +1,4 @@
 var Subscription = (function (module, window) {
-    var config = {
-        mail: 'fittiziasrl@gmail.com',
-        serviceAddress: 'http://mioserviceaddress.blablabla.com'
-    };
-
     function sendMail(name, surname, sender, courseName) {
         var link = "mailto:" + config.mail
             + "?cc=" + sender
@@ -37,19 +32,17 @@ var Subscription = (function (module, window) {
         }
         this._registerCompleted = function (result) {
             sendMail(this.name(), this.surname(), this.email(), this.course());
-            alert('OK');
         },
         this._registerFailed = function (error) {
-            alert('Nope')
+            alert('Errore')
         }
     }
 
-    module.App = function () {
+    module.App = function (config) {
+        this.config = config;
         this.init = function (course) {
-            var config = {
-                courseName: course
-            }
-            ko.applyBindings(new ViewModel(config), $('#iscrizione')[0]);
+            this.config.courseName = course;
+            ko.applyBindings(new ViewModel(this.config), $('#iscrizione')[0]);
         }
     }
 

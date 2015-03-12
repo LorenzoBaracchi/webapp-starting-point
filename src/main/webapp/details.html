@@ -9,6 +9,7 @@
     <title>Fittizia</title>
     <link href="stylesheets/bootstrap.css" rel="stylesheet" />
     <link href="stylesheets/details-style.css" rel="stylesheet" />
+
     <script src="javascripts/lib/jquery.js"></script>
     <script src="javascripts/lib/bootstrap.js"></script>
 
@@ -26,7 +27,7 @@
         (function (vm, address) {
             var currentCourseClient = new CourseClient(address),
                 queryString = function () {
-                    // This function is anonymous, is executed immediately and 
+                    // This function is anonymous, is executed immediately and
                     // the return value is assigned to QueryString!
                     var query_string = {};
                     var query = window.location.search.substring(1);
@@ -51,7 +52,7 @@
                 .done(vm.currentCourse)
                 .fail(function () { alert('error') });
         })(viewModel, Config.serviceAddress);
-        
+
         //AllCourses
         (function (vm, address) {
             var client = new CourseClient(address);
@@ -60,7 +61,7 @@
                 .fail(function () { alert('error') });
         })(viewModel, Config.serviceAddress);
 
-        ko.applyBindings(viewModel);
+        //ko.applyBindings(viewModel);
     </script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -114,7 +115,7 @@
         <!-- /.container -->
     </nav>
     <!-- Page Content -->
-    <div id="mainApp" class="container" data-bind="if: currentCourse() !== null">
+    <div class="container" >
         <div class="row">
             <div class="col-md-3">
                 <!--<div class="row">
@@ -143,7 +144,6 @@
 
                         <p data-bind="text: currentCourse().description"></p>
                     </div>-->
-
                     <!--<div id="iscrizione" data-bind="template: {name: 'subscription-form'}" style="width:40%"></div>-->
                 </div>
             </div>
