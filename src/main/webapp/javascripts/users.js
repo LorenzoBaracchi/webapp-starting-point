@@ -1,7 +1,7 @@
 var Users = (function (module, window) {
     var config = {
         mail: 'fittiziasrl@gmail.com',
-        serviceAddress: 'http://localhost:8080'
+        serviceAddress: '/'
     };
 
     var ViewModel = function (course) {
@@ -19,7 +19,7 @@ var Users = (function (module, window) {
             .done(this._getUsersCompleted)
             .fail(this._getUsersFail);
 
-        
+
     }
     module.ViewModel = ViewModel;
     return module;
