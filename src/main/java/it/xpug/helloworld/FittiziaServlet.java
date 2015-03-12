@@ -50,7 +50,6 @@ public class FittiziaServlet extends HttpServlet {
 		writer.close();
 	}
 
-
 	public String get(String url) {
 		return recorder.getAttendantsAsJson();
 	}
