@@ -52,10 +52,7 @@ var Subscription = (function (module, window) {
         }
         
         var self = this;
-<<<<<<< HEAD
-        this._registerCompleted = function (result) {
-        	//alert('OK');
-=======
+
         this._registerPrivateAttendantCompleted = function (result) {
         	alert('OK - Private');
             sendMail(mailAddress, self.name(), self.surname(), self.email(), self.course());
@@ -65,7 +62,6 @@ var Subscription = (function (module, window) {
         }
         this._registerCompanyAttendantCompleted = function (result) {
         	alert('OK - Company');
->>>>>>> a3018ab7b6efbc7dbe1699916259ed1c5d223691
             sendMail(mailAddress, self.name(), self.surname(), self.email(), self.course());
         },
         this._registerCompanyAttendantFailed = function (error) {
