@@ -35,18 +35,20 @@ public class FittiziaServletTest {
 		assertEquals("[]", server.get("/api/attendants"));
 	}
 
-
 	@Test
 	public void shouldAddAttendandOnPost() {
 		FittiziaServlet server = new FittiziaServlet(null);
-		
+
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("nome", "pippo");
 		params.put("cognome", "pluto");
 		params.put("email", "pippo@gmail.com");
-		
+		params.put("idCorso", "tortellini");
+
 		server.post("/api/attendants", params);
-		assertEquals("[{nome:\"pippo\", cognome:\"pluto\", email:\"pippo@gmail.com\"}]", server.get("/api/attendants"));
+		assertEquals(
+				"[{nome:\"pippo\", cognome:\"pluto\", email:\"pippo@gmail.com\", idCorso:\"tortellini\"}]",
+				server.get("/api/attendants"));
 	}
-	
+
 }

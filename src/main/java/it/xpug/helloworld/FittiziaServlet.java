@@ -40,6 +40,7 @@ public class FittiziaServlet extends HttpServlet {
 		params.put("nome", req.getParameter("nome"));
 		params.put("cognome", req.getParameter("cognome"));
 		params.put("email", req.getParameter("email"));
+		params.put("idCorso", req.getParameter("idCorso"));
 
 		post("/api/attendants", params);
 	}
@@ -49,7 +50,7 @@ public class FittiziaServlet extends HttpServlet {
 	}
 
 	void post(String string, HashMap<String, String> params) {
-		Attendant attendant = new Attendant(params.get("nome"), params.get("cognome"), params.get("email"));
+		Attendant attendant = new Attendant(params.get("nome"), params.get("cognome"), params.get("email"), params.get("idCorso"));
 		recorder.addAddendants(attendant);
 	}
 }
