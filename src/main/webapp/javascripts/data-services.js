@@ -63,12 +63,12 @@ AjaxClient.prototype = {
 function UserClient(address, headers) {
     this.client = new AjaxClient(address, headers);
     this.registerUser = function (course, name, surname, email) {
-        return this.client._callPostMethod('api/attendands', JSON.stringify( {
+        return this.client._callPostMethod('api/attendands', {
             idCorso: course,
             nome: name,
             cognome: surname,
             email: email
-        }))
+        });
     }
     this.getUsers = function (course) {
         return this.client._callGetMethod('api/attendands', null)
