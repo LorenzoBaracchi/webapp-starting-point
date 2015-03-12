@@ -56,12 +56,20 @@ AjaxClient.prototype = {
 
 function UserClient(address, headers) {
     this.client = new AjaxClient(address, headers);
-    this.registerUser = function (course, name, surname, email) {
+    this.sendPrivateSubscription = function (course, privateAttendant) {
         return this.client._callPostMethod('api/attendands', {
         	idCorso: course,
-            nome: name,
-            cognome: surname,
-            email: email
+            nome: privateAttendant.name(),
+            cognome: privateAttendant.surname(),
+            email: privateAttendant.email()
+        });
+    }
+    this.sendCompanySubscription = function(course, companyAttendant) {
+    	return this.client._callPostMethod('api/attendands', {
+        	idCorso: course,
+            nome: companyAttendant.name(),
+            email: companyAttendant.email(),
+            numeroPartecipanti: companyAttendant.attendandsNumber()
         });
     }
     this.getUsers = function (course) {
@@ -81,74 +89,7 @@ function UserClient(address, headers) {
             return res;
         })
     }
-    //this.getUsers = function (course) {
-    //    return {
-    //        done: function (callback) {
-    //            callback([{
-    //                name: 'Nome1',
-    //                surname: 'Cognome1',
-    //                email: 'EMail1'
-    //            },
-    //            {
-    //                name: 'Nome2',
-    //                surname: 'Cognome2',
-    //                email: 'EMail2'
-    //            }
-    //            ,
-    //            {
-    //                name: 'Nome2',
-    //                surname: 'Cognome2',
-    //                email: 'EMail2'
-    //            },
-    //            {
-    //                name: 'Nome2',
-    //                surname: 'Cognome2',
-    //                email: 'EMail2'
-    //            },
-    //            {
-    //                name: 'Nome2',
-    //                surname: 'Cognome2',
-    //                email: 'EMail2'
-    //            },
-    //            {
-    //                name: 'Nome2',
-    //                surname: 'Cognome2',
-    //                email: 'EMail2'
-    //            },
-    //            {
-    //                name: 'Nome2',
-    //                surname: 'Cognome2',
-    //                email: 'EMail2'
-    //            },
-    //            {
-    //                name: 'Nome2',
-    //                surname: 'Cognome2',
-    //                email: 'EMail2'
-    //            },
-    //            {
-    //                name: 'Nome2',
-    //                surname: 'Cognome2',
-    //                email: 'EMail2'
-    //            },
-    //            {
-    //                name: 'Nome2',
-    //                surname: 'Cognome2',
-    //                email: 'EMail2'
-    //            },
-    //            {
-    //                name: 'Nome Fittizio (non fondatore)',
-    //                surname: 'Cognome2',
-    //                email: 'EMail2'
-    //            }
-    //            ])
-    //            return this;
-    //        },
-    //        fail: function (callback) {
-    //            callback('error');
-    //            return this;
-    //        }
-    //    }
-    //}
+ 
 }
 
 function CourseClient(address, headers) {

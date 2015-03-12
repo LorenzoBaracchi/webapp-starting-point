@@ -52,24 +52,27 @@ var Subscription = (function (module, window) {
         }
         
         var self = this;
-
+<<<<<<< HEAD
+        this._registerCompleted = function (result) {
+        	//alert('OK');
+=======
         this._registerPrivateAttendantCompleted = function (result) {
         	alert('OK - Private');
-            sendMail(self.config.mailAddress, self.name(), self.surname(), self.email(), self.course());
+            sendMail(mailAddress, self.name(), self.surname(), self.email(), self.course());
         },
         this._registerPrivateAttendantFailed = function (error) {
             alert('Errore')
         }
         this._registerCompanyAttendantCompleted = function (result) {
         	alert('OK - Company');
-            sendMail(self.config.mailAddress, self.name(), self.surname(), self.email(), self.course());
+>>>>>>> a3018ab7b6efbc7dbe1699916259ed1c5d223691
+            sendMail(mailAddress, self.name(), self.surname(), self.email(), self.course());
         },
         this._registerCompanyAttendantFailed = function (error) {
             alert('Errore')
         }
     }
 
-    module.ViewModel = ViewModel;
     module.App = function (config) {
         this.config = config;
         this.init = function (course) {

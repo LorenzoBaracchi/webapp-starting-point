@@ -10,7 +10,7 @@ public class AttendantRecorderTest {
 	public void shouldReadListWithOneAttendant() {
 		
 		AttendantRecorder recorder = new AttendantRecorder();
-		Attendant attendant = new Attendant("pippo", "pluto", "pippo@gmail.com", "abc");
+		Attendable attendant = new Attendant("pippo", "pluto", "pippo@gmail.com", "abc");
 		
 		recorder.addAddendants(attendant);
 		
@@ -23,7 +23,7 @@ public class AttendantRecorderTest {
 		AttendantRecorder recorder = new AttendantRecorder();
 		
 		assertEquals("[]",recorder.getAttendantsAsJson());
-		Attendant attendant = new Attendant("pippo", "pluto", "pippo@gmail.com", "abc");
+		Attendable attendant = new Attendant("pippo", "pluto", "pippo@gmail.com", "abc");
 		
 		recorder.addAddendants(attendant);
 		assertEquals("[{\"nome\":\"pippo\", \"cognome\":\"pluto\", \"email\":\"pippo@gmail.com\", \"idCorso\":\"abc\"}]", recorder.getAttendantsAsJson());
@@ -32,6 +32,17 @@ public class AttendantRecorderTest {
 		recorder.addAddendants(attendant);
 		assertEquals("[{\"nome\":\"pippo\", \"cognome\":\"pluto\", \"email\":\"pippo@gmail.com\", \"idCorso\":\"abc\"},"
 				+ "{\"nome\":\"ciao\", \"cognome\":\"mario\", \"email\":\"pippo@gmail.com\", \"idCorso\":\"cba\"}]", recorder.getAttendantsAsJson());	
+	}
+	
+	@Test
+	public void shouldMultipleAttendantsForCompany() {
+		AttendantRecorder recorder = new AttendantRecorder();
+		
+		Attendable attendant = new CompanyAttendant("nomeAzienda", "pippo@azienda.com", "corsoid", 5);
+		
+		recorder.addAddendants(attendant);
+		assertEquals("[{\"nome\":\"nomeAzienda\", \"email\":\"pippo@azienda.com\", \"idCorso\":\"corsoid\", \"numeroPartecipanti\":5}]",
+				recorder.getAttendantsAsJson());
 	}
 
 }

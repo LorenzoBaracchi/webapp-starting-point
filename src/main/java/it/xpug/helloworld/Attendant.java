@@ -1,13 +1,12 @@
 package it.xpug.helloworld;
 
-public class Attendant{
+public class Attendant implements Attendable{
 	private String nome;
 	private String cognome;
 	private String email;
 	private String idCorso;
 	
 	public Attendant(String nome, String cognome, String email, String idCorso) {
-		super();
 		this.nome = nome;
 		this.cognome = cognome;
 		this.email = email;
@@ -26,6 +25,10 @@ public class Attendant{
 		return email;
 	}
 	
+	public String getIdCorso() {
+		return idCorso;
+	}
+	
 	@Override
 	public String toString() {
 
@@ -33,7 +36,4 @@ public class Attendant{
 				"\", \"email\":\""+this.getEmail()+"\", \"idCorso\":\""+this.idCorso+"\"}";
 	}
 
-	public String getIdCorso() {
-		return idCorso;
-	}
 }
