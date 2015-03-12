@@ -43,6 +43,9 @@ public class FittiziaServlet extends HttpServlet {
 		params.put("idCorso", req.getParameter("idCorso"));
 
 		post("/api/attendants", params);
+		PrintWriter writer = resp.getWriter();
+		writer.write("Iscrizione avvenuta con sucesso!");
+		writer.close();
 	}
 
 	public String get(String url) {
