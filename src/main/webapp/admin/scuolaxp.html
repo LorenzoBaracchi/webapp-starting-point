@@ -14,13 +14,18 @@
     <script src="../javascripts/lib/bootstrap.js"></script>
 
     <script src="../javascripts/lib/utils.js"></script>
+    <script src="../javascripts/iscrizione.js"></script>
     <script src="../javascripts/lib/knockout.js"></script>
     <script src="../javascripts/data-services.js"></script>
     <script src="../javascripts/users.js"></script>
+    <script src="../javascripts/config.js"></script>
 
     <script>
         $(window).load(function () {
-            ko.applyBindings(new Users.ViewModel('ScuolaXP'))
+            var usersVM = new Users.ViewModel('ScuolaXP');
+            var subscriptionApp = new Subscription.App(Config);
+            ko.applyBindings(usersVM, $('#user-component')[0]);
+            subscriptionApp.init('ScuolaXP');
         })
         
     </script>
@@ -34,9 +39,45 @@
 <body>
     <script type="text/html" id="users-list">
        <ul data-bind="foreach: users">
-           <li><span data-bind="text: name"></span> <span data-bind="text: surname"></span> - <span data-bind="text: email"></span></li>
+           <li>[<span data-bind="text: attendantsNumber"></span>] <span data-bind="text: name"></span> <span data-bind="text: surname"></span> - <span data-bind="text: email"></span></li>
 
        </ul>
+    </script>
+    
+    <script type="text/html" id="subscription-form-singolo">
+        <form>
+            <div class="form-group">
+                <label>Nome</label>
+                <input type="text" data-bind="value: privateAttendant.name" class="form-control" id="text-name" placeholder="Nome" />
+            </div>
+            <div class="form-group">
+                <label>Cognome</label>
+                <input type="text" class="form-control" data-bind="value: privateAttendant.surname" placeholder="Cognome">
+            </div>
+            <div class="form-group">
+                <label>E-Mail</label>
+                <input type="email" class="form-control" data-bind="value: privateAttendant.email" placeholder="E-Mail">
+            </div>
+            <button data-bind="click: sendPrivateSubscription" type="button" class="btn btn-default">Iscrivi</button>
+        </form>
+    </script>
+    
+    <script type="text/html" id="subscription-form-azienda">
+        <form>
+            <div class="form-group">
+                <label>Nome Azienda</label>
+                <input type="text" data-bind="value: companyAttendant.name" class="form-control" id="text-name" placeholder="Nome Azienda" />
+            </div>
+            <div class="form-group">
+                <label>E-Mail</label>
+                <input type="email" class="form-control" data-bind="value: companyAttendant.email" placeholder="E-Mail">
+            </div>
+            <div class="form-group">
+                <label>Numero Partecipanti</label>
+                <input type="number" class="form-control" data-bind="value: companyAttendant.attendandsNumber" placeholder="1">
+            </div>
+            <button data-bind="click: sendCompanySubscription" type="button" class="btn btn-default">Iscrivi</button>
+        </form>
     </script>
 
     <!-- Navigation -->
@@ -94,7 +135,15 @@
 
                         <h4> Lista Partecipanti</h4>
 
-                        <div id="iscrizione" data-bind="template: {name: 'users-list'}" style="width:40%"></div>
+                        <div id="user-component" data-bind="template: {name: 'users-list'}" style="width:40%"></div>
+                        
+                        <h4> Iscrivi un Partecipante</h4>
+                        
+                        <div id="private-subscription" data-bind="template: {name: 'subscription-form-singolo'}" style="width:40%"></div>
+                        
+                        <h4> Iscrivi Partecipanti per Azienda</h4>
+                        
+                        <div id="company-subscription" data-bind="template: {name: 'subscription-form-azienda'}" style="width:40%"></div>
                         
                     </div>
 
