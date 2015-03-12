@@ -12,32 +12,63 @@ var Subscription = (function (module, window) {
         return true;
     };
 
+    function PrivateAttendant(){
+    	this.name = ko.observable('');
+    	this.surname = ko.observable('');
+    	this.email = ko.observable('');
+    	
+    	this.validate = function() {
+    		return true;
+    	}
+    }
+    function CompanyAttendant() {
+    	this.name = ko.observable('');
+    	this.attendandsNumber = ko.observable(1);
+    	this.email = ko.observable('');
+    	
+    	this.validate = function(){
+    		return true;
+    	}
+    }
     var ViewModel = function (config) {
-    	var mailAddress = config.mail,
-        	client = new UserClient(config.serviceAddress);
-        this.name = ko.observable('');
-        this.surname = ko.observable('');
-        this.email = ko.observable('');
+    	this.config = config;
+    	
+    	this.privateAttendant = new PrivateAttendant();
+    	this.companyAttendant = new CompanyAttendant();
         this.course = ko.observable(config.courseName);
 
-        this.isNameValid = ko.observable(true);
-        this.isSurnameValid = ko.observable(true);
-        this.isEMailValid = ko.observable(true);
 
-        this.sendSubscription = function() {
-            if(validate(this)){
-                client.registerUser(this.course(), this.name(), this.surname(), this.email())
-                    .done(this._registerCompleted)
-                    .fail(this._registerFailed);
-            };
+        this.sendPrivateSubscription = function(){
+        	var client = new UserClient(this.config.serviceAddress);
+        	client.sendPrivateSubscription(this.course(), this.privateAttendant)
+        		.done(this._registerPrivateAttendantCompleted)
+        		.fail(this._registerPrivateAttendantFailed);
+        }
+        this.sendCompanySubscription = function(){
+        	var client = new UserClient(this.config.serviceAddress);
+        	client.sendCompanySubscription(this.course(), this.companyAttendant)
+        		.done(this._registerCompanyAttendantCompleted)
+        		.fail(this._registerCompanyAttendantFailed);
         }
         
         var self = this;
+<<<<<<< HEAD
         this._registerCompleted = function (result) {
         	//alert('OK');
+=======
+        this._registerPrivateAttendantCompleted = function (result) {
+        	alert('OK - Private');
             sendMail(mailAddress, self.name(), self.surname(), self.email(), self.course());
         },
-        this._registerFailed = function (error) {
+        this._registerPrivateAttendantFailed = function (error) {
+            alert('Errore')
+        }
+        this._registerCompanyAttendantCompleted = function (result) {
+        	alert('OK - Company');
+>>>>>>> a3018ab7b6efbc7dbe1699916259ed1c5d223691
+            sendMail(mailAddress, self.name(), self.surname(), self.email(), self.course());
+        },
+        this._registerCompanyAttendantFailed = function (error) {
             alert('Errore')
         }
     }
@@ -46,7 +77,8 @@ var Subscription = (function (module, window) {
         this.config = config;
         this.init = function (course) {
             this.config.courseName = course;
-            ko.applyBindings(new ViewModel(this.config), $('#iscrizione')[0]);
+            ko.applyBindings(new ViewModel(this.config), $('#private-subscription')[0]);
+            ko.applyBindings(new ViewModel(this.config), $('#company-subscription')[0]);
         }
     }
 

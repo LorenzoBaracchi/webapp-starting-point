@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class AttendantRecorder {
 	
-	private ArrayList<Attendant> attendants;
+	private ArrayList<Attendable> attendants;
 	
 	public AttendantRecorder(){
-		attendants = new ArrayList<Attendant>();
+		attendants = new ArrayList<Attendable>();
 	}
 
 	public String getAttendantsAsJson() {
@@ -16,13 +16,13 @@ public class AttendantRecorder {
 
 	private String attendantsList() {
 		String temp="";
-		for (Attendant attendant : attendants) {
+		for (Attendable attendant : attendants) {
 			temp+=attendant+",";
 		}
 		return temp.replaceAll(",$", "");
 	}
 
-	public void addAddendants(Attendant attendant) {
+	public void addAddendants(Attendable attendant) {
 		this.attendants.add(attendant);
 		
 	}
