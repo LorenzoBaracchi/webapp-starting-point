@@ -50,5 +50,11 @@ public class FittiziaServletTest {
 				"[{nome:\"pippo\", cognome:\"pluto\", email:\"pippo@gmail.com\", idCorso:\"tortellini\"}]",
 				server.get("/api/attendants"));
 	}
+	
+	@Test
+	public void shouldNotRespondOnInvalUrl(){
+		FittiziaServlet server = new FittiziaServlet(null);
+		assertEquals("404", server.get("/sconosciuto/attendants"));
+	}
 
 }

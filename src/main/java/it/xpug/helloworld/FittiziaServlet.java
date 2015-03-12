@@ -49,7 +49,7 @@ public class FittiziaServlet extends HttpServlet {
 		return recorder.getAttendantsAsJson();
 	}
 
-	void post(String string, HashMap<String, String> params) {
+	void post(String url, HashMap<String, String> params) {
 		Attendant attendant = new Attendant(params.get("nome"), params.get("cognome"), params.get("email"), params.get("idCorso"));
 		recorder.addAddendants(attendant);
 	}
