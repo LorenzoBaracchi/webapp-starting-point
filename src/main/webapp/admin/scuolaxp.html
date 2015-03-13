@@ -37,10 +37,21 @@
     <![endif]-->
 </head>
 <body>
+	<script type="text/html" id="private-element">
+		<li>
+			<span data-bind="text: name"></span> <span data-bind="text: surname"></span> - <span data-bind="text: email"></span>
+		</li>
+	</script>
+	<script type="text/html" id="company-element">
+		<!-- ko foreach: workaroundArray -->
+			<li>Iscritto <span data-bind="text: $parent.name"></span> #<span data-bind="text: $data"></span></li>
+		<!--/ko -->
+	</script>
+	
     <script type="text/html" id="users-list">
        <ul data-bind="foreach: users">
-           <li>[<span data-bind="text: attendantsNumber"></span>] <span data-bind="text: name"></span> <span data-bind="text: surname"></span> - <span data-bind="text: email"></span></li>
-
+			<!-- ko template: { name: type + '-element'} -->
+			<!-- /ko -->
        </ul>
     </script>
     

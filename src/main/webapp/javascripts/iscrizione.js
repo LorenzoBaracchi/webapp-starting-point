@@ -55,14 +55,14 @@ var Subscription = (function (module, window) {
 
         this._registerPrivateAttendantCompleted = function (result) {
         	alert('OK - Private');
-            sendMail(self.config.mail, self.privateAttendant.name(), self.privateAttendant.surname(), self.privateAttendant.email(), self.course());
+            //sendMail(self.config.mail, self.privateAttendant.name(), self.privateAttendant.surname(), self.privateAttendant.email(), self.course());
         },
         this._registerPrivateAttendantFailed = function (error) {
             alert('Errore')
         }
         this._registerCompanyAttendantCompleted = function (result) {
         	alert('OK - Company');
-            sendMail(self.config.mail, self.companyAttendant.name(), self.companyAttendant.attendandsNumber(), self.companyAttendant.email(), self.course());
+            //sendMail(self.config.mail, self.companyAttendant.name(), self.companyAttendant.attendandsNumber(), self.companyAttendant.email(), self.course());
         },
         this._registerCompanyAttendantFailed = function (error) {
             alert('Errore')

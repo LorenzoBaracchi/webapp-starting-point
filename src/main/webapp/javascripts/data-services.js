@@ -56,6 +56,33 @@ AjaxClient.prototype = {
 
 function UserClient(address, headers) {
     this.client = new AjaxClient(address, headers);
+    
+    function createAttendant(serverModel){
+    	if(serverModel.cognome && serverModel.cognome !== 'null') {
+    		return {
+    			name: serverModel.nome,
+    			surname: serverModel.cognome,
+    			email: serverModel.email,
+    			type: 'private'
+            }
+    	} else {
+    		return {
+    			name: serverModel.nome,
+    			attendantsNumber: serverModel.numeroPartecipanti,
+    			workaroundArray: (function(){
+    				var arr = [];
+    				for(i = 0; i < serverModel.numeroPartecipanti; ++i){
+    					arr.push(i + 1);
+    				}
+    				return arr;
+    			})(),
+    			email: serverModel.email,
+    			type: 'company'
+    		}
+    	}
+    	
+    }
+    
     this.sendPrivateSubscription = function (course, privateAttendant) {
         return this.client._callPostMethod('api/attendands', {
         	idCorso: course,
@@ -79,16 +106,20 @@ function UserClient(address, headers) {
             result = JSON.parse(result);
             for (var i = 0; i < result.length; i++) {
                 if (result[i].idCorso === course) {
-                    res.push({
-                        name: result[i].nome,
-                        surname: result[i].cognome,
-                        email: result[i].email,
-                        attendantsNumber: result[i].numeroPartecipanti || 1
-                    })
+                    res.push(createAttendant(result[i]));
                 }
             }
             return res;
         })
+    }
+    this.changeCourse = function(companyName, idCourseFrom, idCourseTo, numberOfAttendants){
+    	return this.client._callPostMethod('api/attendands', {
+        	nome: companyName,
+            idCorsoDa: idCourseFrom,
+            idCorsoA: idCourseTo,
+            numeroPartecipanti: numberOfAttendants,
+            method: 'move'
+        });
     }
  
 }
@@ -108,7 +139,7 @@ function CourseClient(address, headers) {
             detailsUrl: 'scuolaxp.html',
             location: 'Giussago',
             price: '300.00',
-            teachers: ['...', '...'],
+            teachers: ['Nome Cognome', 'Nome2 Cognome2'],
             achivments: ['Obiettivo1', 'Obiettivo2', 'Obiettivo3', 'Obiettivo4'],
             arguments: [{
                 title: 'Argomento 1',
