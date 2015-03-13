@@ -35,8 +35,13 @@ public class AttendantRecorder {
 			}
 			else{
 				current.removePartecipants(numberToRemove);
+				if(current.getNumeroPartecipanti()==0)
+				{
+					attendants.remove(current);
+				}
 			}
 		}
+		
 	}
 
 	private Attendable getAttendatsFor(String companyName, String courseId) {

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class FittiziaServletTest {
@@ -110,5 +111,35 @@ public class FittiziaServletTest {
 				server.get("/api/attendants"));	
 
 	}
+	
+	@Test @Ignore
+	public void shouldMoveAllAttendants(){
+		FittiziaServlet server = new FittiziaServlet(null);
+		
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("nome", "pippo");
+		params.put("email", "pippo@gmail.com");
+		params.put("idCorso", "tortellini");
+		params.put("numeroPartecipanti", "9");
+
+		server.post("/api/attendants", params);
+		assertEquals(
+				"[{\"nome\":\"pippo\", \"email\":\"pippo@gmail.com\", \"idCorso\":\"tortellini\", \"numeroPartecipanti\":9}]",
+				server.get("/api/attendants"));
+		
+		params = new HashMap<String, String>();
+		params.put("method", "move");
+		params.put("nome", "pippo");
+		params.put("email", "pippo@gmail.com");
+		params.put("idCorsoDa", "tortellini");
+		params.put("idCorsoA", "sommossa");
+		params.put("numeroPartecipanti", "9");
+
+		server.post("/api/attendants", params);
+		assertEquals("[]",server.get("/api/attendants"));	
+
+	}
+	
+	
 
 }
