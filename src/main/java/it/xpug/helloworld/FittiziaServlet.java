@@ -50,6 +50,8 @@ public class FittiziaServlet extends HttpServlet {
 		params.put("cognome", req.getParameter("cognome"));
 		params.put("email", req.getParameter("email"));
 		params.put("idCorso", req.getParameter("idCorso"));
+		params.put("idCorsoDa", req.getParameter("idCorsoDa"));
+		params.put("idCorsoA", req.getParameter("idCorsoA"));
 
 		params.put("numeroPartecipanti", req.getParameter("numeroPartecipanti"));
 		return params;
@@ -61,7 +63,12 @@ public class FittiziaServlet extends HttpServlet {
 
 	void post(String url, HashMap<String, String> params) {
 
-		if (isRemoveRequest(params)) {
+		if (isMoveRequest(params)) {
+			int toMove = Integer.parseInt(params.get("numeroPartecipanti"));
+			recorder.removeAttendants(params.get("nome"), params.get("idCorsoDa"), toMove);
+			CompanyAttendant attendant = new CompanyAttendant(params.get("nome"), params.get("email"), params.get("idCorsoA"), toMove);
+			recorder.addAddendants(attendant);
+		}else if (isRemoveRequest(params)) {
 			int toRemove = Integer.parseInt(params.get("numeroPartecipanti"));
 			recorder.removeAttendants(params.get("nome"),
 					params.get("idCorso"), toRemove);
@@ -74,6 +81,11 @@ public class FittiziaServlet extends HttpServlet {
 	private boolean isRemoveRequest(HashMap<String, String> params) {
 		return params.get("method") != null
 				&& params.get("method").equals("remove");
+	}
+	
+	private boolean isMoveRequest(HashMap<String, String> params) {
+		return params.get("method") != null
+				&& params.get("method").equals("move");
 	}
 
 	private Attendable getAttendant(HashMap<String, String> params) {
