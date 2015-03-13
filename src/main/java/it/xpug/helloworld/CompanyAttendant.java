@@ -38,4 +38,8 @@ public class CompanyAttendant implements Attendable {
 		return numeroPartecipanti;
 	}
 
+	public void removePartecipants(int numberToRemove) {
+		this.numeroPartecipanti -= numberToRemove;
+	}
+
 }
