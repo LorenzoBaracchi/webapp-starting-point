@@ -36,9 +36,12 @@ public class FittiziaServlet extends HttpServlet {
 
 		HashMap<String, String> params = parseParameters(req);
 
-		post("/api/attendants", params);
+		boolean success = post("/api/attendants", params);
 		PrintWriter writer = resp.getWriter();
-		writer.write("Iscrizione avvenuta con sucesso!");
+		if(success)
+			writer.write("Iscrizione avvenuta con sucesso!");
+		else
+			writer.write("Iscrizione fallita");
 		writer.close();
 	}
 	
@@ -50,6 +53,8 @@ public class FittiziaServlet extends HttpServlet {
 		params.put("cognome", req.getParameter("cognome"));
 		params.put("email", req.getParameter("email"));
 		params.put("idCorso", req.getParameter("idCorso"));
+		params.put("idCorsoDa", req.getParameter("idCorsoDa"));
+		params.put("idCorsoA", req.getParameter("idCorsoA"));
 
 		params.put("numeroPartecipanti", req.getParameter("numeroPartecipanti"));
 		return params;
@@ -59,21 +64,42 @@ public class FittiziaServlet extends HttpServlet {
 		return recorder.getAttendantsAsJson();
 	}
 
-	void post(String url, HashMap<String, String> params) {
+	boolean post(String url, HashMap<String, String> params) {
 
-		if (isRemoveRequest(params)) {
+		if (isMoveRequest(params)) {
+			int toMove = Integer.parseInt(params.get("numeroPartecipanti"));
+			try {
+				recorder.removeAttendants(params.get("nome"), params.get("idCorsoDa"), toMove);
+			} catch (AttendantException e) {
+				e.printStackTrace();
+				return false;
+			}
+			CompanyAttendant attendant = new CompanyAttendant(params.get("nome"), params.get("email"), params.get("idCorsoA"), toMove);
+			recorder.addAddendants(attendant);
+		}else if (isRemoveRequest(params)) {
 			int toRemove = Integer.parseInt(params.get("numeroPartecipanti"));
-			recorder.removeAttendants(params.get("nome"),
-					params.get("idCorso"), toRemove);
+			try {
+				recorder.removeAttendants(params.get("nome"),
+						params.get("idCorso"), toRemove);
+			} catch (AttendantException e) {
+				e.printStackTrace();
+				return false;
+			}
 		} else {
 			Attendable attendant = getAttendant(params);
 			recorder.addAddendants(attendant);
 		}
+		return true;
 	}
 
 	private boolean isRemoveRequest(HashMap<String, String> params) {
 		return params.get("method") != null
 				&& params.get("method").equals("remove");
+	}
+	
+	private boolean isMoveRequest(HashMap<String, String> params) {
+		return params.get("method") != null
+				&& params.get("method").equals("move");
 	}
 
 	private Attendable getAttendant(HashMap<String, String> params) {
