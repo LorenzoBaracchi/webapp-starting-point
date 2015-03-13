@@ -26,4 +26,18 @@ public class AttendantRecorder {
 		this.attendants.add(attendant);
 		
 	}
+
+	public void removeAttendants(String companyName, String courseId, int numberToRemove) {
+		CompanyAttendant current = (CompanyAttendant) getAttendatsFor(companyName, courseId);
+		if(current != null)
+			current.removePartecipants(numberToRemove);
+	}
+
+	private Attendable getAttendatsFor(String companyName, String courseId) {
+		for(Attendable attendant : attendants){
+			if(attendant.getNome().equals(companyName) && attendant.getIdCorso().equals(courseId))
+				return attendant;
+		}
+		return null;
+	}
 }

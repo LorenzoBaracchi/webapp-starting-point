@@ -44,5 +44,20 @@ public class AttendantRecorderTest {
 		assertEquals("[{\"nome\":\"nomeAzienda\", \"email\":\"pippo@azienda.com\", \"idCorso\":\"corsoid\", \"numeroPartecipanti\":5}]",
 				recorder.getAttendantsAsJson());
 	}
+	
+	@Test
+	public void shouldRemoveOneAttendantForCompany() {
+		AttendantRecorder recorder = new AttendantRecorder();
+		
+		Attendable attendant = new CompanyAttendant("nomeAzienda", "pippo@azienda.com", "corsoid", 5);
+		
+		recorder.addAddendants(attendant);
+		assertEquals("[{\"nome\":\"nomeAzienda\", \"email\":\"pippo@azienda.com\", \"idCorso\":\"corsoid\", \"numeroPartecipanti\":5}]",
+				recorder.getAttendantsAsJson());
+		
+		recorder.removeAttendants("nomeAzienda", "corsoid", 2);
+		assertEquals("[{\"nome\":\"nomeAzienda\", \"email\":\"pippo@azienda.com\", \"idCorso\":\"corsoid\", \"numeroPartecipanti\":3}]",
+				recorder.getAttendantsAsJson());
+	}
 
 }
