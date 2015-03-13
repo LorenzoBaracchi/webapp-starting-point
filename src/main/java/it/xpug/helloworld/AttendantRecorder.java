@@ -27,10 +27,16 @@ public class AttendantRecorder {
 		
 	}
 
-	public void removeAttendants(String companyName, String courseId, int numberToRemove) {
+	public void removeAttendants(String companyName, String courseId, int numberToRemove) throws AttendantException {
 		CompanyAttendant current = (CompanyAttendant) getAttendatsFor(companyName, courseId);
-		if(current != null)
-			current.removePartecipants(numberToRemove);
+		if(current != null){
+			if(current.getNumeroPartecipanti() < numberToRemove){
+				throw new AttendantException("Il numero di partecipanti e' minore del numero da rimuovere");
+			}
+			else{
+				current.removePartecipants(numberToRemove);
+			}
+		}
 	}
 
 	private Attendable getAttendatsFor(String companyName, String courseId) {

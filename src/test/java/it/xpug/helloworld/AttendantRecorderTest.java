@@ -46,7 +46,7 @@ public class AttendantRecorderTest {
 	}
 	
 	@Test
-	public void shouldRemoveOneAttendantForCompany() {
+	public void shouldRemoveOneAttendantForCompany() throws AttendantException {
 		AttendantRecorder recorder = new AttendantRecorder();
 		
 		Attendable attendant = new CompanyAttendant("nomeAzienda", "pippo@azienda.com", "corsoid", 5);
@@ -60,4 +60,17 @@ public class AttendantRecorderTest {
 				recorder.getAttendantsAsJson());
 	}
 
+	
+	@Test(expected=AttendantException.class)
+	public void shouldNotRemoveWhenNotEnoughAttendants() throws AttendantException {
+		AttendantRecorder recorder = new AttendantRecorder();
+		
+		Attendable attendant = new CompanyAttendant("nomeAzienda", "pippo@azienda.com", "corsoid", 5);
+		
+		recorder.addAddendants(attendant);
+		assertEquals("[{\"nome\":\"nomeAzienda\", \"email\":\"pippo@azienda.com\", \"idCorso\":\"corsoid\", \"numeroPartecipanti\":5}]",
+				recorder.getAttendantsAsJson());
+		
+		recorder.removeAttendants("nomeAzienda", "corsoid", 8);	
+	}
 }
