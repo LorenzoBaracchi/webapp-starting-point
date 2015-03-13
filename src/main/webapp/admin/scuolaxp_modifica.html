@@ -14,18 +14,30 @@
     <script src="../javascripts/lib/bootstrap.js"></script>
 
     <script src="../javascripts/lib/utils.js"></script>
-    <script src="../javascripts/iscrizione.js"></script>
     <script src="../javascripts/lib/knockout.js"></script>
     <script src="../javascripts/data-services.js"></script>
-    <script src="../javascripts/users.js"></script>
     <script src="../javascripts/config.js"></script>
 
     <script>
+        function ViewModel(){
+            this.nome = ko.observable('');
+            this.idCorsoDa = ko.observable('');
+            this.idCorsoA = ko.observable('');
+            this.numeroPartecipanti = ko.observable('');
+            
+            this.changeCourse = function() {
+                var client = new UserClient(Config.serviceAddress);
+                client.changeCourse(this.nome, this.idCorsoDa, this.idCorsoA, this.numeroPartecipanti)
+                    .done(function(result){
+                    alert('Ok');
+                    })
+                    .fail(function(error){
+                    alert('Nope');
+                    });
+            }
+        }
         $(window).load(function () {
-            var usersVM = new Users.ViewModel('ScuolaXP');
-            var subscriptionApp = new Subscription.App(Config);
-            ko.applyBindings(usersVM, $('#user-component')[0]);
-            subscriptionApp.init('ScuolaXP');
+            ko.applyBindings(new ViewModel());
         })
         
     </script>
@@ -37,57 +49,26 @@
     <![endif]-->
 </head>
 <body>
-	<script type="text/html" id="private-element">
-		<li>
-			<span data-bind="text: name"></span> <span data-bind="text: surname"></span> - <span data-bind="text: email"></span>
-		</li>
-	</script>
-	<script type="text/html" id="company-element">
-		<!-- ko foreach: workaroundArray -->
-			<li>Iscritto <span data-bind="text: $parent.name"></span> #<span data-bind="text: $data"></span></li>
-		<!--/ko -->
-	</script>
-	
-    <script type="text/html" id="users-list">
-       <ul data-bind="foreach: users">
-			<!-- ko template: { name: type + '-element'} -->
-			<!-- /ko -->
-       </ul>
-    </script>
     
-    <script type="text/html" id="subscription-form-singolo">
-        <form>
-            <div class="form-group">
-                <label>Nome</label>
-                <input type="text" data-bind="value: privateAttendant.name" class="form-control" id="text-name" placeholder="Nome" />
-            </div>
-            <div class="form-group">
-                <label>Cognome</label>
-                <input type="text" class="form-control" data-bind="value: privateAttendant.surname" placeholder="Cognome">
-            </div>
-            <div class="form-group">
-                <label>E-Mail</label>
-                <input type="email" class="form-control" data-bind="value: privateAttendant.email" placeholder="E-Mail">
-            </div>
-            <button data-bind="click: sendPrivateSubscription" type="button" class="btn btn-default">Iscrivi</button>
-        </form>
-    </script>
-    
-    <script type="text/html" id="subscription-form-azienda">
+    <script type="text/html" id="move-form">
         <form>
             <div class="form-group">
                 <label>Nome Azienda</label>
-                <input type="text" data-bind="value: companyAttendant.name" class="form-control" id="text-name" placeholder="Nome Azienda" />
+                <input type="text" data-bind="value: nome" class="form-control" id="text-name" placeholder="Nome Azienda" />
             </div>
             <div class="form-group">
-                <label>E-Mail</label>
-                <input type="email" class="form-control" data-bind="value: companyAttendant.email" placeholder="E-Mail">
+                <label>Da Corso</label>
+                <input type="email" class="form-control" data-bind="value: idCorsoDa" placeholder="Da Corso">
             </div>
             <div class="form-group">
-                <label>Numero Partecipanti</label>
-                <input type="number" class="form-control" data-bind="value: companyAttendant.attendandsNumber" placeholder="1">
+                <label>A Corso</label>
+                <input type="email" class="form-control" data-bind="value: idCorsoA" placeholder="A Corso">
             </div>
-            <button data-bind="click: sendCompanySubscription" type="button" class="btn btn-default">Iscrivi</button>
+            <div class="form-group">
+                <label>Numero Partecipanti da spostare</label>
+                <input type="number" class="form-control" data-bind="value: numeroPartecipanti" placeholder="1">
+            </div>
+            <button data-bind="click: changeCourse" type="button" class="btn btn-default">Sposta</button>
         </form>
     </script>
 
@@ -141,20 +122,12 @@
             <div class="col-md-9">
                 <div class="thumbnail">
                     <div class="caption-full">
-                        <h4 class="pull-right"><a href="scuolaxp_modifica.html">Modifica Partecipanti</a></h4>
+                        <h4 class="pull-right"><a href="scuolaxp.html">Vedi/Iscrivi Partecipanti</a></h4>
                         <h3> <a href="#">ScuolaXP</a> </h3>
 
-                        <h4> Lista Partecipanti</h4>
+                        <h4> Sposta Partecipanti per Azienda</h4>
 
-                        <div id="user-component" data-bind="template: {name: 'users-list'}" style="width:40%"></div>
-                        
-                        <h4> Iscrivi un Partecipante</h4>
-                        
-                        <div id="private-subscription" data-bind="template: {name: 'subscription-form-singolo'}" style="width:40%"></div>
-                        
-                        <h4> Iscrivi Partecipanti per Azienda</h4>
-                        
-                        <div id="company-subscription" data-bind="template: {name: 'subscription-form-azienda'}" style="width:40%"></div>
+                        <div id="user-component" data-bind="template: {name: 'move-form'}" style="width:40%"></div>
                         
                     </div>
 
