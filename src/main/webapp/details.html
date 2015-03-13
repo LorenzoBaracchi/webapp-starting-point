@@ -22,7 +22,7 @@
     <script>
     $(window).load(function(){
     	
-    	 var viewModel = new Courses.ViewModel();
+    	 var viewModel = new Courses.ViewModel(Config);
 
          //CurrentCourse
          (function (vm, address) {
@@ -170,8 +170,8 @@
 
                         <p data-bind="text: currentCourse().longDescription"></p>
                     </div>
-                    <div id="private-subscription" data-bind="template: {name: 'private-subscription-form'}" style="width:40%"></div>
-               		<div id="company-subscription" data-bind="template: {name: 'company-subscription-form'}"> </div>     
+                    <div data-bind="template: {name: 'private-subscription-form'}" style="width:40%"></div>
+               		<div data-bind="template: {name: 'company-subscription-form'}"> </div>     
                </div>
 
             </div>
